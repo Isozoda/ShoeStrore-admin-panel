@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+const getBaseURL = (): string => {
+  const url = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+  return url.endsWith('/api') ? url : `${url.replace(/\/$/, '')}/api`;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: getBaseURL(),
   withCredentials: true,
 });
 
@@ -31,7 +36,7 @@ api.interceptors.response.use(
       isRefreshing = true;
       try {
         const { data } = await axios.post(
-          `${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/auth/refresh`,
+          `${getBaseURL()}/auth/refresh`,
           {},
           { withCredentials: true }
         );

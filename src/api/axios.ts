@@ -1,7 +1,15 @@
 import axios from 'axios';
 
 const getBaseURL = (): string => {
-  const url = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+  let url = import.meta.env.VITE_API_URL;
+  if (!url) {
+    if (import.meta.env.PROD) {
+      console.warn('[DEBUG] VITE_API_URL is missing in production environment variables! Falling back to relative path.');
+      url = '/api'; // fallback to relative or you can throw an error
+    } else {
+      url = 'http://localhost:3000/api';
+    }
+  }
   return url.endsWith('/api') ? url : `${url.replace(/\/$/, '')}/api`;
 };
 

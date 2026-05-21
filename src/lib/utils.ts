@@ -58,7 +58,8 @@ export const PLACEHOLDER_IMAGE = "data:image/svg+xml;utf8,<svg xmlns='http://www
 export function getImageUrl(path: string): string {
   if (!path) return PLACEHOLDER_IMAGE;
   if (path.startsWith('http') || path.startsWith('data:')) return path;
-  const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+  const rawApiUrl = import.meta.env.VITE_API_URL || 'https://shoestore-api-n8oj.onrender.com/api';
+  const baseUrl = rawApiUrl.replace('/api', '');
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;
 }

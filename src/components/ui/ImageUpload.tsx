@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, X, ImageIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
+import { cn, getImageUrl } from '@/lib/utils';
 import { uploadsApi } from '@/api/uploads.api';
 import toast from 'react-hot-toast';
 
@@ -44,7 +44,7 @@ export function ImageUpload({ value, onChange, className }: Props) {
     <div className={cn('space-y-2', className)}>
       {value ? (
         <div className="relative inline-block">
-          <img src={value.startsWith('http') ? value : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${value}`} alt="Uploaded" className="h-32 w-32 rounded-xl object-cover border border-slate-200 dark:border-slate-700" />
+          <img src={getImageUrl(value)} alt="Uploaded" className="h-32 w-32 rounded-xl object-cover border border-slate-200 dark:border-slate-700" />
           <button
             type="button"
             onClick={() => onChange('')}

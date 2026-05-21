@@ -4,8 +4,8 @@ const getBaseURL = (): string => {
   let url = import.meta.env.VITE_API_URL;
   if (!url) {
     if (import.meta.env.PROD) {
-      console.warn('[DEBUG] VITE_API_URL is missing in production environment variables! Falling back to relative path.');
-      url = '/api'; // fallback to relative or you can throw an error
+      console.warn('[DEBUG] VITE_API_URL is missing in production environment variables! Falling back to production backend URL.');
+      url = 'https://shoestore-api-n8oj.onrender.com/api';
     } else {
       url = 'http://localhost:3000/api';
     }
